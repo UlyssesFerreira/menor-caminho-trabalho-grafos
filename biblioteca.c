@@ -10,11 +10,12 @@ int menu()
     int opcao;
 
     printf("================MENU================\n");
-    printf("Escolha sua opção:\n");
+    printf("Escolha sua opï¿½ï¿½o:\n");
     printf("     1. Realizar consulta de rota\n");
+    printf("     2. Ver fronteiras\n");
     printf("     0. Sair do programa\n");
     printf("-----------------------------------\n");
-    printf("Opção: ");
+    printf("Opï¿½ï¿½o: ");
     scanf("%d", &opcao);
     printf("-----------------------------------\n");
 
@@ -23,25 +24,24 @@ int menu()
 
 void tabelaCidades()
 {
-    printf("\nCidade\t\t\t\t|N°\n");
+    printf("\nCidade\t\t\t\t|Nï¿½\n");
     printf("--------------------------------|--\n");
     printf("Casa Branca\t\t\t| 1\n");
     printf("Vargem G. do Sul\t\t| 2\n");
-    printf("Aguaí\t\t\t\t| 3\n");
-    printf("São João da Boa Vista\t\t| 4\n");
-    printf("Águas da Prata\t\t\t| 5\n");
-    printf("Poços de Calda\t\t\t| 6\n");
+    printf("Aguaï¿½\t\t\t\t| 3\n");
+    printf("Sï¿½o Joï¿½o da Boa Vista\t\t| 4\n");
+    printf("ï¿½guas da Prata\t\t\t| 5\n");
+    printf("Poï¿½os de Calda\t\t\t| 6\n");
     printf("Andradas\t\t\t| 7\n");
-    printf("Santo Antônio do Jardim\t\t| 8\n");
-    printf("Espírito Santo do Pinhal\t| 9\n");
-    printf("Mogi Guaçu\t\t\t|10\n");
+    printf("Santo Antï¿½nio do Jardim\t\t| 8\n");
+    printf("Espï¿½rito Santo do Pinhal\t| 9\n");
+    printf("Mogi Guaï¿½u\t\t\t|10\n");
     printf("Estiva Gerbi\t\t\t|11\n");
 }
 
-void preencheMatriz(int *custos)
+void preencheMatriz(int *custos, FILE *arq)
 {
     int i;
-    FILE *arq;
 
     arq = fopen("grafo.txt", "rt");
     int num;
@@ -49,6 +49,34 @@ void preencheMatriz(int *custos)
     {
         fscanf(arq, "%d", &num);
         custos[i] = num;
+    }
+}
+
+
+void mostraFonteiras(int m[VERTICES][VERTICES], FILE *arq)
+{
+    arq = fopen("grafo.txt", "rt");
+    int i, j, num;
+
+    for(i=0; i<VERTICES;i++)
+    {
+        for(j=0; j<VERTICES;j++)
+        {
+            fscanf(arq, "%d", &num);
+            m[i][j] = num;
+        }
+    }
+
+    for(i=0; i<VERTICES;i++)
+    {
+        for(j=0; j<VERTICES;j++)
+        {
+            if(m[i][j] != -1)
+            {
+                printf("A cidade %d tem fronteira com a cidade %d.\n", i+1, j+1);
+            }
+        }
+        printf("\n");
     }
 }
 
@@ -93,7 +121,7 @@ void dijkstra(int vertices,int origem,int destino,int *custos)
 
     do
     {
-        /* Encontrando o vértice que deve entrar em z */
+        /* Encontrando o vï¿½rtice que deve entrar em z */
         min=HUGE_VAL;
         for(i=0;i<vertices;i++)
           if(!z[i])
@@ -103,7 +131,7 @@ void dijkstra(int vertices,int origem,int destino,int *custos)
                 v=i;
             }
 
-        /* Calculando as distâncias dos novos vizinhos de z */
+        /* Calculando as distï¿½ncias dos novos vizinhos de z */
 
         if (min!=HUGE_VAL && v!=destino-1)
         {
@@ -122,10 +150,10 @@ void dijkstra(int vertices,int origem,int destino,int *custos)
 
 
     if (min==HUGE_VAL)
-        printf("\nNo digrafo dado não existe caminho entre os vértices %d e %d !!\n",origem,destino);
+        printf("\nNo digrafo dado nï¿½o existe caminho entre os vï¿½rtices %d e %d !!\n",origem,destino);
     else
     {
-        printf("\nO melhor caminho para ir da cidade %d até a cidade %d é: \n",
+        printf("\nO melhor caminho para ir da cidade %d atï¿½ a cidade %d ï¿½: \n",
             origem,destino);
 
         c = 0;
@@ -148,7 +176,7 @@ void dijkstra(int vertices,int origem,int destino,int *custos)
                 printf("%d=>", caminho[i]);
         }
 
-        printf("\n\nO distância deste trajeto é: %d Km.\n",(int) dist[destino-1]);
+        printf("\n\nO distï¿½ncia deste trajeto ï¿½: %d Km.\n",(int) dist[destino-1]);
     }
 
 }

@@ -9,8 +9,8 @@
 int main(){
 
     setlocale(LC_ALL, "Portuguese");
-
-    int i, opcao, origem, destino, *custos=NULL;
+    FILE *arq;
+    int i, opcao, origem, destino, *custos=NULL, m[VERTICES][VERTICES];
 
 //iniciar matriz de custos
     if (!custos)
@@ -21,7 +21,7 @@ int main(){
         custos[i]=-1;
     }
 
-    preencheMatriz(custos);
+    preencheMatriz(custos, arq);
 
     do
     {
@@ -32,7 +32,7 @@ int main(){
             case 1:
 
                 tabelaCidades();
-                printf("\nDigite o N° da cidade de origem e do destino\n");
+                printf("\nDigite o Nï¿½ da cidade de origem e do destino\n");
                 do
                 {
                   printf("Cidade origem (entre 1 e %d): ",VERTICES);
@@ -49,12 +49,18 @@ int main(){
 
                 break;
 
+            case 2:
+
+                mostraFonteiras(m, arq);
+
+            break;
+
             case 0:
                 opcao = 0;
                 break;
 
             default:
-                printf("Digite uma opção válida!!!\n\n");
+                printf("Digite uma opï¿½ï¿½o vï¿½lida!!!\n\n");
                 break;
         }
     }while (opcao!=0);
